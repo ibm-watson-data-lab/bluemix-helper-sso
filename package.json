@@ -1,6 +1,6 @@
 {
   "name": "bluemix-helper-sso",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Bluemix Helper for adding oAuth SSO support to your application",
   "main": "./lib/sso",
   "author": "david_taieb@us.ibm.com",
