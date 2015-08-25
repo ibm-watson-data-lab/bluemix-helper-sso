@@ -1,0 +1,32 @@
+{
+  "name": "bluemix-helper-sso",
+  "version": "0.1.0",
+  "description": "Bluemix Helper for adding oAuth SSO support to your application",
+  "main": "./lib/sso",
+  "author": "david_taieb@us.ibm.com",
+  "scripts": {
+  },
+  "repository": {
+   "type" : "git",
+   "url": "git+https://github.com/ibm-cds-labs/bluemix-helper-sso.git"
+  },
+  "keywords": [
+    "bluemix",
+    "sso"
+  ],
+  "dependencies": {
+  	"bluemix-helper-config": "*",
+  	"express": "^4.10.6",
+  	"passport": "~0.2.2",
+  	"express-session": "1.11.3",
+    "lodash": "~3.9.3",
+    "oauth": "0.9.10",
+    "base64url": "0.0.6",
+    "jws": "0.2.5"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  },
+  "license": "Apache-2.0",
+  "readmeFilename": "README.md"
+}
