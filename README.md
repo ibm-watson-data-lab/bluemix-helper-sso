@@ -25,7 +25,14 @@ This SSO Service configuration step is now complete. The next section will cover
 
 # Add authentication to your Bluemix node application
 As mentioned before, [expressjs](http://expressjs.com/) and [passportjs](http://passportjs.org/) framework are expected to be used in your node application.  
-The following example code shows how to use the bluemix-helper-sso library:  
+
+The following example code shows demonstrates how the steps needed to easily add authentication to your Bluemix application:  
+1. Create the app express object  
+2. Use the [bluemix-helper-config](https://github.com/ibm-cds-labs/bluemix-helper-config) library to easily detect if SSO service is bound to your application   
+3. Invoke the bluemix-helper-sso library using the express app object and an option object with the following parameters:  
+  * ssoService: Json Object representing the SSO Service returned by the bluemix-helper-config library  
+  * ssoServiceName: (alternative to ssoService) pass the name of the sso service that will be query by the bluemix-helper-sso library  
+  * relaxedUrls: (Optional) Array of urls that will not be authenticated. e.g: /img will match any url starting with /img  
 
 ```javascript
 var express = require('express');		//expressjs  
@@ -37,7 +44,12 @@ var app = express();
 var ssoService = bluemixHelperConfig.vcapServices.getService( "sso" );  
 if ( ssoService) {  
   //Add SSO authentication to the app
-  bluemixHelperSSO(app, ssoService);
+  bluemixHelperSSO(app, {
+  	ssoService:ssoService,
+  	relaxedUrls:[
+		"/js", "/img", "/css", "/bower_components", "templates"
+	]
+  });
 }
 ...  
 ```  
