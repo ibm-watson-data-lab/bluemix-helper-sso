@@ -32,7 +32,7 @@ The following example code shows demonstrates how the steps needed to easily add
 3. Invoke the bluemix-helper-sso library using the express app object and an option object with the following parameters:  
   * ssoService: Json Object representing the SSO Service returned by the bluemix-helper-config library  
   * ssoServiceName: (alternative to ssoService) pass the name of the sso service that will be query by the bluemix-helper-sso library  
-  * relaxedUrls: (Optional) Array of urls that will not be authenticated. e.g: /img will match any url starting with /img  
+  * relaxedUrls: (Optional) Array of urls that will not be authenticated. e.g: /img will match any url starting with /img. Note: "/" is a special case. Because it's the root, it will only match the root url (as to avoid relaxing the entire app)
 
 ```javascript
 var express = require('express');		//expressjs  
@@ -50,6 +50,36 @@ if ( ssoService) {
 		"/js", "/img", "/css", "/bower_components", "templates"
 	]
   });
+}
+...  
+```  
+
+By default, bluemix-helper-sso is using an in-memory session store to manage to the session ids. Optionally, you can also configure it to use your own session store, by passing a configuration object in the sessionConfig field. The following code example shows how to use redis as the session store:  
+
+```javascript
+... 
+var ssoService = bluemixHelperConfig.vcapServices.getService( "pipes-sso" );
+if ( ssoService ){
+	//Add SSO authentication to the app
+	bluemixHelperSSO(app, {
+		ssoService: ssoService,
+		relaxedUrls:[
+		    "/js", "/img", "/css", "/bower_components", "templates"
+		],
+		createSessionStore: function( session ){
+		   //Use redis service to create the store if available
+			var redisService = bluemixHelperConfig.vcapServices.getService("pipes-redis");
+			if ( redisService ){
+				var redisStore = require('connect-redis')(session);
+				return new redisStore({
+					host: redisService.credentials.hostname,
+					port: redisService.credentials.port,
+					pass: redisService.credentials.password
+				});
+			}
+			return null;
+		}
+	});
 }
 ...  
 ```  
