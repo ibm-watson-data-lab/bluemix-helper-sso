@@ -24,7 +24,9 @@ Please follow the following steps to add and configure an SSO service to work wi
 This SSO Service configuration step is now complete. The next section will cover how to add authentication to the application code.
 
 # Add authentication to your Bluemix node application
-As mentioned before, [expressjs](http://expressjs.com/) and [passportjs](http://passportjs.org/) framework are expected to be used in your node application.  
+As mentioned before, [expressjs](http://expressjs.com/) and [passportjs](http://passportjs.org/) framework are expected to be used in your node application. 
+
+You can check out the sample app in the /example directory. 
 
 The following example code shows demonstrates how the steps needed to easily add authentication to your Bluemix application:  
 1. Create the app express object  
@@ -53,6 +55,20 @@ if ( ssoService) {
 }
 ...  
 ```  
+
+Note: when running locally, you will need to tell the bluemix-helper-sso about the host and port, so it can properly compute the callback url. This is done using the global object of bluemix-helper-config module as follow:  
+
+```javascript  
+...
+var global = bluemixHelperConfig.global;
+...
+var port = process.env.VCAP_APP_PORT || 8082;
+if (!process.env.VCAP_APP_HOST){
+	//Need to set the host and port for this app as we are running locally
+	global.appHost = "http://127.0.0.1";
+	global.appPort = port;
+}
+``` 
 
 By default, bluemix-helper-sso is using an in-memory session store to manage to the session ids. Optionally, you can also configure it to use your own session store, by passing a configuration object in the sessionConfig field. The following code example shows how to use redis as the session store:  
 
