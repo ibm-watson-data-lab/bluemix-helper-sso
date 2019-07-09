@@ -5,28 +5,32 @@
   "main": "./lib/sso",
   "author": "david_taieb@us.ibm.com",
   "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
-   "type" : "git",
-   "url": "git+https://github.com/ibm-cds-labs/bluemix-helper-sso.git"
+    "type": "git",
+    "url": "git+https://github.com/ibm-cds-labs/bluemix-helper-sso.git"
   },
   "keywords": [
     "bluemix",
     "sso"
   ],
   "dependencies": {
-  	"bluemix-helper-config": "*",
-  	"express": "^4.10.6",
-  	"passport": "~0.2.2",
-  	"express-session": "1.11.3",
+    "bluemix-helper-config": "*",
+    "express": "^4.10.6",
+    "passport": "~0.2.2",
+    "express-session": "1.11.3",
     "lodash": "~3.9.3",
     "oauth": "0.9.10",
     "base64url": "0.0.6",
-    "jws": "0.2.5"
+    "jws": "0.2.5",
+    "snyk": "^1.192.4"
   },
   "devDependencies": {
     "mocha": "*"
   },
   "license": "Apache-2.0",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "snyk": true
 }
