@@ -21,7 +21,7 @@
   	"express-session": "1.11.3",
     "lodash": "~3.9.3",
     "oauth": "0.9.10",
-    "base64url": "0.0.6",
+    "base64url": "3.0.1",
     "jws": "0.2.5"
   },
   "devDependencies": {
